@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sit737-api
-          image: docker.io/<your-dockerhub-username>/sit737-capstone-api:v1
+          image: docker.io/josephks10/sit737-capstone-api:v1
           ports:
             - containerPort: 8080
           resources:
