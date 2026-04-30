@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sit737-api
+  labels:
+    app: sit737-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sit737-api
+  template:
+    metadata:
+      labels:
+        app: sit737-api
+    spec:
+      containers:
+        - name: sit737-api
+          image: docker.io/<your-dockerhub-username>/sit737-capstone-api:v1
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
